@@ -10,6 +10,7 @@
 
     <Grid>
         <WebView Source="https://dev.droneblocks.io"/>
+        <Button Name="TestButton" Content="Button" Margin="703,500,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

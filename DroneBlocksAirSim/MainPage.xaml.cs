@@ -22,9 +22,21 @@ namespace DroneBlocksAirSim
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private TCP client;
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            TestButton.Click += TestButton_Click;
+
+            client = new TCP();
+
+        }
+
+        private void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            client.Send();
         }
     }
 }
