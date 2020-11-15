@@ -12,7 +12,6 @@ namespace DroneBlocksAirSim
 {
     public class TCP
     {
-        private bool isDroneArmed = false;
 
         public TCP()
         {
@@ -22,67 +21,68 @@ namespace DroneBlocksAirSim
         public void Send()
         {
 
-            var obj = new Sample1
+            var enableApiControl = new Command
             {
                 Request = 0,
                 MessageId = 0,
-                Command = "enableApiControl",
+                Method = "enableApiControl",
                 args = new ArrayList { true, "" }
             };
 
-            var obj2 = new Sample1
+            var arm = new Command
             {
                 Request = 0,
                 MessageId = 1,
-                Command = "armDisarm",
-                args = new ArrayList { false, "" }
+                Method = "armDisarm",
+                args = new ArrayList { true, "" }
             };
 
-            if (!this.isDroneArmed)
+            var takeoff = new Command
             {
-                obj2.args = new ArrayList { true, "" };
-                Debug.WriteLine(this.isDroneArmed);
-            }
+                Request = 0,
+                MessageId = 1,
+                Method = "takeoff",
+                args = new ArrayList { 20, "" }
+            };
 
-            this.isDroneArmed = !this.isDroneArmed;
-
-            //byte[] bytes = Encoding.ASCII.GetBytes(MessagePackSerializer.SerializeToJson(new Sample1 { Request = 0, MessageId = 1, Command = "enableAPIControl", EnableControl = true }));
-
-            byte[] command = MessagePackSerializer.Serialize(obj);
-
-            byte[] command2 = MessagePackSerializer.Serialize(obj2);
+            var land = new Command
+            {
+                Request = 0,
+                MessageId = 1,
+                Method = "land",
+                args = new ArrayList { 20, "" }
+            };
 
             TcpClient tcpClient = new TcpClient();
+
             try
             {
                 tcpClient.Connect("127.0.0.1", 41451);
 
-                // Sends a message to the host to which you have connected.
-                // Byte[] sendBytes = Encoding.ASCII.GetBytes("Is anybody there?");
-
+                Byte[] command = MessagePackSerializer.Serialize(enableApiControl);
                 NetworkStream stream = tcpClient.GetStream();
                 stream.Write(command, 0, command.Length);
-                stream.Write(command2, 0, command2.Length);
+                var response = new Byte[128];
+                Int32 bytes = stream.Read(response, 0, response.Length);
 
-                //byte[] receive = tcpClient.
+                Debug.WriteLine("enableApiControl: " + bytes.ToString());
 
-                // Sends a message to a different host using optional hostname and port parameters.
-                //UdpClient udpClientB = new UdpClient();
-                //udpClientB.Send(sendBytes, sendBytes.Length, "AlternateHostMachineName", 11000);
+                command = MessagePackSerializer.Serialize(arm);
+                stream.Write(command, 0, command.Length);
+                response = new Byte[128];
+                bytes = stream.Read(response, 0, response.Length);
 
-                //IPEndPoint object will allow us to read datagrams sent from any source.
-                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                Debug.WriteLine("armDisarm: " + bytes.ToString());
 
-                // Blocks until a message returns on this socket from a remote host.
-                //Byte[] receiveBytes = udpClient.Receive(ref RemoteIpEndPoint);
-                //string returnData = Encoding.ASCII.GetString(receiveBytes);
+                command = MessagePackSerializer.Serialize(takeoff);
+                stream.Write(command, 0, command.Length);
+                response = new Byte[128];
+                bytes = stream.Read(response, 0, response.Length);
 
-                // Uses the IPEndPoint object to determine which of these two hosts responded.
-                //Debug.WriteLine("This is the message you received " + returnData.ToString());
-                Debug.WriteLine("This message was sent from " +
-                                            RemoteIpEndPoint.Address.ToString() +
-                                            " on their port number " +
-                                            RemoteIpEndPoint.Port.ToString());
+                Debug.WriteLine("takeoff: " + bytes.ToString());
+
+                Debug.WriteLine("Mission Complete");
+
 
                 tcpClient.Close();
             }
@@ -95,14 +95,14 @@ namespace DroneBlocksAirSim
     }
 
     [MessagePackObject]
-    public class Sample1
+    public class Command
     {
         [Key(0)]
         public int Request { get; set; } // Should always be 0
         [Key(1)]
         public int MessageId { get; set; }
         [Key(2)]
-        public string Command { get; set; }
+        public string Method { get; set; }
         [Key(3)]
         public ArrayList args { get; set; }
 
