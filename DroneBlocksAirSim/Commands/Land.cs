@@ -14,7 +14,7 @@ namespace DroneBlocksAirSim.Commands
                 Request = 0,
                 MessageId = 1,
                 Method = "land",
-                args = new ArrayList { 5, "" }
+                args = new ArrayList { 60, "" }
             };
         }
 
