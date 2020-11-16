@@ -13,6 +13,7 @@ namespace DroneBlocksAirSim
 {
     public class TCP
     {
+        private ArrayList commands;
 
         public TCP()
         {
@@ -82,64 +83,25 @@ namespace DroneBlocksAirSim
                 args = new ArrayList { 0, 0, -10, 5, 60, 0, new YawMode { is_rate = false, yaw_or_rate = 0 }, -1, 1, "" }
             };
 
+            commands = new ArrayList { enableApiControl, arm, new Takeoff().getCommand() };
+
             TcpClient tcpClient = new TcpClient();
 
             try
             {
                 tcpClient.Connect("127.0.0.1", 41451);
-
-                Byte[] command = MessagePackSerializer.Serialize(enableApiControl);
                 NetworkStream stream = tcpClient.GetStream();
 
-                stream.Write(command, 0, command.Length);
-                var response = new Byte[128];
-                Int32 bytes = stream.Read(response, 0, response.Length);
-                Debug.WriteLine("enableApiControl: " + bytes.ToString());
-
-                command = MessagePackSerializer.Serialize(arm);
-                stream.Write(command, 0, command.Length);
-                response = new Byte[128];
-                bytes = stream.Read(response, 0, response.Length);
-                Debug.WriteLine("armDisarm: " + bytes.ToString());
-
-                command = MessagePackSerializer.Serialize(new Takeoff().getCommand());
-                stream.Write(command, 0, command.Length);
-                response = new Byte[128];
-                bytes = stream.Read(response, 0, response.Length);
-                Debug.WriteLine("takeoff complete: " + bytes.ToString());
-
-                command = MessagePackSerializer.Serialize(flyForward);
-                stream.Write(command, 0, command.Length);
-                bytes = stream.Read(response, 0, response.Length);
-                Debug.WriteLine("fly forward complete: " + bytes.ToString());
-
-                command = MessagePackSerializer.Serialize(flyRight);
-                stream.Write(command, 0, command.Length);
-                bytes = stream.Read(response, 0, response.Length);
-                Debug.WriteLine("fly right complete: " + bytes.ToString());
-
-                command = MessagePackSerializer.Serialize(flyBackward);
-                stream.Write(command, 0, command.Length);
-                bytes = stream.Read(response, 0, response.Length);
-                Debug.WriteLine("fly backward complete: " + bytes.ToString());
-
-                command = MessagePackSerializer.Serialize(flyLeft);
-                stream.Write(command, 0, command.Length);
-                bytes = stream.Read(response, 0, response.Length);
-                Debug.WriteLine("fly left complete: " + bytes.ToString());
-
-                command = MessagePackSerializer.Serialize(new Land().getCommand());
-                stream.Write(command, 0, command.Length);
-                bytes = stream.Read(response, 0, response.Length);
-                Debug.WriteLine("land complete: " + bytes.ToString());
-
-                /*command = MessagePackSerializer.Serialize(disarm);
-                stream.Write(command, 0, command.Length);
-                bytes = stream.Read(response, 0, response.Length);
-                Debug.WriteLine("disarm complete: " + bytes.ToString());*/
+                foreach (var command in commands)
+                {
+                    Byte[] message = MessagePackSerializer.Serialize(command);
+                    stream.Write(message, 0, message.Length);
+                    var response = new Byte[128];
+                    Int32 bytes = stream.Read(response, 0, response.Length);
+                    Debug.WriteLine("enableApiControl: " + bytes.ToString());
+                }
 
                 Debug.WriteLine("Mission complete");
-
 
                 tcpClient.Close();
             }
