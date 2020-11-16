@@ -7,6 +7,7 @@ using System.Collections;
 using MessagePack;
 using System.Net.Sockets;
 using System.Net;
+using DroneBlocksAirSim.Commands;
 
 namespace DroneBlocksAirSim
 {
@@ -43,22 +44,6 @@ namespace DroneBlocksAirSim
                 MessageId = 1,
                 Method = "armDisarm",
                 args = new ArrayList { false, "" }
-            };
-
-            var takeoff = new MessagePackCommand
-            {
-                Request = 0,
-                MessageId = 1,
-                Method = "takeoff",
-                args = new ArrayList { 20, "" }
-            };
-
-            var land = new MessagePackCommand
-            {
-                Request = 0,
-                MessageId = 1,
-                Method = "land",
-                args = new ArrayList { 20, "" }
             };
 
             var flyForward = new MessagePackCommand
@@ -117,7 +102,7 @@ namespace DroneBlocksAirSim
                 bytes = stream.Read(response, 0, response.Length);
                 Debug.WriteLine("armDisarm: " + bytes.ToString());
 
-                command = MessagePackSerializer.Serialize(takeoff);
+                command = MessagePackSerializer.Serialize(new Takeoff().getCommand());
                 stream.Write(command, 0, command.Length);
                 response = new Byte[128];
                 bytes = stream.Read(response, 0, response.Length);
@@ -143,7 +128,7 @@ namespace DroneBlocksAirSim
                 bytes = stream.Read(response, 0, response.Length);
                 Debug.WriteLine("fly left complete: " + bytes.ToString());
 
-                command = MessagePackSerializer.Serialize(land);
+                command = MessagePackSerializer.Serialize(new Land().getCommand());
                 stream.Write(command, 0, command.Length);
                 bytes = stream.Read(response, 0, response.Length);
                 Debug.WriteLine("land complete: " + bytes.ToString());

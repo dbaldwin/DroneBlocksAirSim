@@ -12,7 +12,6 @@ namespace DroneBlocksAirSim
     [MessagePackObject]
     public class MessagePackCommand
     {
-
         [Key(0)]
         public int Request { get; set; } // Should always be 0
         [Key(1)]
