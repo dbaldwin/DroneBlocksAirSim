@@ -8,6 +8,7 @@ using MessagePack;
 using System.Net.Sockets;
 using System.Net;
 using DroneBlocksAirSim.Commands;
+using System.Threading;
 
 namespace DroneBlocksAirSim
 {
@@ -47,15 +48,6 @@ namespace DroneBlocksAirSim
                 args = new ArrayList { false, "" }
             };
 
-            var flyForward = new MessagePackCommand
-            {
-                Request = 0,
-                MessageId = 1,
-                Method = "moveToPosition",
-                // x y z velocity
-                args = new ArrayList { 20, 0, -10, 5, 60, 0, new YawMode { is_rate = false, yaw_or_rate = 0 }, -1, 1, "" }
-            };
-
             var flyRight = new MessagePackCommand
             {
                 Request = 0,
@@ -83,7 +75,7 @@ namespace DroneBlocksAirSim
                 args = new ArrayList { 0, 0, -10, 5, 60, 0, new YawMode { is_rate = false, yaw_or_rate = 0 }, -1, 1, "" }
             };
 
-            commands = new ArrayList { enableApiControl, arm, new Takeoff().getCommand() };
+            commands = new ArrayList { enableApiControl, arm, new Takeoff().getCommand(), new FlyForward(10).getCommand(), new Land().getCommand() };
 
             TcpClient tcpClient = new TcpClient();
 
@@ -92,13 +84,19 @@ namespace DroneBlocksAirSim
                 tcpClient.Connect("127.0.0.1", 41451);
                 NetworkStream stream = tcpClient.GetStream();
 
-                foreach (var command in commands)
+                foreach (MessagePackCommand command in commands)
                 {
                     Byte[] message = MessagePackSerializer.Serialize(command);
                     stream.Write(message, 0, message.Length);
                     var response = new Byte[128];
                     Int32 bytes = stream.Read(response, 0, response.Length);
-                    Debug.WriteLine("enableApiControl: " + bytes.ToString());
+                    Debug.WriteLine(command.Method + " response: " + bytes.ToString());
+
+                    if (command.Method == "moveToPosition")
+                    {
+                        Debug.WriteLine("pausing");
+                        Thread.Sleep(5000);
+                    }
                 }
 
                 Debug.WriteLine("Mission complete");

@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\FlyForward.cs" />
     <Compile Include="Commands\MessagePackCommand.cs" />
     <Compile Include="Commands\Land.cs" />
     <Compile Include="Commands\Takeoff.cs" />
