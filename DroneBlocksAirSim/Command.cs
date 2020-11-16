@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace DroneBlocksAirSim
 {
+    
     [MessagePackObject]
-    public class Command
+    public class MessagePackCommand
     {
 
         [Key(0)]
@@ -22,4 +23,5 @@ namespace DroneBlocksAirSim
         public ArrayList args { get; set; }
         
     }
+
 }
