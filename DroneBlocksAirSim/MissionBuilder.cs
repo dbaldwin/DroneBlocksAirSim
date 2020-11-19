@@ -27,6 +27,13 @@ namespace DroneBlocksAirSim
         public ArrayList parseMission()
         {
 
+            // In some cases when there's a single block we need to remove the leading pipe
+            if (missionString.IndexOf("|") == 0)
+            {
+                missionString = missionString.Remove(0, 1);
+            }
+
+            // Initialize the command list
             ArrayList commandList = new ArrayList();
 
             // Let's enable API control
@@ -45,7 +52,23 @@ namespace DroneBlocksAirSim
                 else if (command.IndexOf("fly_forward") > -1)
                 {
                     int distance = int.Parse(parameters[1]);
-                    commandList.Add(new FlyForward(distance).GetCommand());
+                    Debug.WriteLine("giong to fly forward: " + distance);
+                    //commandList.Add(new FlyForward(distance).GetCommand());
+
+                    // Testing move by velocity
+                    commandList.Add(new MoveByVelocity(distance, 0, 0, 30).GetCommand());
+                }
+                else if (command.IndexOf("fly_up") > -1)
+                {
+                    int distance = int.Parse(parameters[1]);
+
+                    // For now let's do the negative conversion for them
+                    distance *= -1;
+
+                    Debug.WriteLine("giong to fly up: " + distance);
+
+                    // Testing move by velocity
+                    commandList.Add(new MoveByVelocity(0, 0, distance, 30).GetCommand());
                 }
                 else if (command.IndexOf("fly_backward") > -1)
                 {

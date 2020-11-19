@@ -123,6 +123,7 @@
     <Compile Include="Commands\FlyForward.cs" />
     <Compile Include="Commands\MessagePackCommand.cs" />
     <Compile Include="Commands\Land.cs" />
+    <Compile Include="Commands\MoveByVelocity.cs" />
     <Compile Include="Commands\Takeoff.cs" />
     <Compile Include="Commands\FlyBackward.cs" />
     <Compile Include="MainPage.xaml.cs">

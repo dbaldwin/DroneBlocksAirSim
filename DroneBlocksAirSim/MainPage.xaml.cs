@@ -22,7 +22,7 @@ namespace DroneBlocksAirSim
         async void webView_ScriptNotify(object sender, NotifyEventArgs e)
         {
 
-            Debug.WriteLine(e.Value);
+            Debug.WriteLine("Raw mission string: " + e.Value);
 
             // Temporary because of cache
             if (e.Value.IndexOf("Please") > -1) return;
