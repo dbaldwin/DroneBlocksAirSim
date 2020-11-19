@@ -41,7 +41,7 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <uap:ApplicationContentUriRules>
-        <uap:Rule Type="include" Match="https://droneblocks-staging.firebaseapp.com/chrome_app.html" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://droneblocks-staging.firebaseapp.com/*" WindowsRuntimeAccess="all"/>
       </uap:ApplicationContentUriRules>
     </Application>
   </Applications>

@@ -21,15 +21,14 @@ namespace DroneBlocksAirSim
             TestButton.Click += TestButton_Click;
 
             client = new TCP();
-
-
             webView.ScriptNotify += webView_ScriptNotify;
 
         }
 
         async void webView_ScriptNotify(object sender, NotifyEventArgs e)
         {
-            client.Send();
+            //client.Send();
+            Debug.WriteLine(e.Value);
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
