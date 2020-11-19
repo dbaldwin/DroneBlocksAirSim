@@ -9,8 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <WebView Source="https://dev.droneblocks.io"/>
+        <WebView Name="webView" Source="ms-appx-web:///test.html" />
+        <!--<WebView Name="webView" Source="https://droneblocks-staging.firebaseapp.com/chrome_app.html" />-->
         <Button Name="TestButton" Content="Button" Margin="703,500,0,0" VerticalAlignment="Top"/>
-
     </Grid>
 </Page>
