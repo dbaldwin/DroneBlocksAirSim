@@ -2,19 +2,19 @@
 
 namespace DroneBlocksAirSim.Commands
 {
-    class Land: MessagePackCommand
+    class EnableApiControl
     {
 
         private readonly MessagePackCommand command;
 
-        public Land()
+        public EnableApiControl()
         {
             command = new MessagePackCommand
             {
                 Request = 0,
-                MessageId = 1,
-                Method = "land",
-                args = new ArrayList { 60, "" }
+                MessageId = 0,
+                Method = "enableApiControl",
+                args = new ArrayList { true, "" }
             };
         }
 

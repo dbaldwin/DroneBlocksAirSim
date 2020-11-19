@@ -12,28 +12,28 @@ namespace DroneBlocksAirSim
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private TCP client;
 
         public MainPage()
         {
             this.InitializeComponent();
-
-            TestButton.Click += TestButton_Click;
-
-            client = new TCP();
             webView.ScriptNotify += webView_ScriptNotify;
-
         }
 
         async void webView_ScriptNotify(object sender, NotifyEventArgs e)
         {
-            //client.Send();
-            Debug.WriteLine(e.Value);
-        }
 
-        private void TestButton_Click(object sender, RoutedEventArgs e)
-        {
-            client.Send();
+            Debug.WriteLine(e.Value);
+
+            // Temporary because of cache
+            if (e.Value.IndexOf("Please") > -1) return;
+
+            // Launch code is provided from webView
+            MissionBuilder mb = new MissionBuilder(e.Value);
+            var commandArray = mb.parseMission();
+
+            MissionHandler mh = new MissionHandler();
+            mh.StartMissionLoop(commandArray);
+
         }
 
     }

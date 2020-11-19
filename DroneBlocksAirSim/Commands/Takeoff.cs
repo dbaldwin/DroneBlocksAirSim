@@ -3,9 +3,9 @@ using System.Collections;
 
 namespace DroneBlocksAirSim.Commands
 {
-    public class Takeoff
+    public class Takeoff: MessagePackCommand
     {
-        private MessagePackCommand command;
+        private readonly MessagePackCommand command;
 
         public Takeoff()
         {
@@ -18,7 +18,7 @@ namespace DroneBlocksAirSim.Commands
             };
         }
 
-        public MessagePackCommand getCommand()
+        public MessagePackCommand GetCommand()
         {
             return command;
         }

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace DroneBlocksAirSim.Commands
 {
-    class FlyForward: MessagePackCommand
+    class FlyBackward: MessagePackCommand
     {
         private readonly MessagePackCommand command;
 
         // Need to figure out how to use current xyz as reference for moveToPosition
-        public FlyForward(int distance)
+        public FlyBackward(int distance)
         {
             command = new MessagePackCommand
             {

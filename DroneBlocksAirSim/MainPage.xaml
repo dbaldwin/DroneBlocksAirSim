@@ -11,6 +11,6 @@
     <Grid>
         <!--<WebView Name="webView" Source="ms-appx-web:///test.html" />-->
         <WebView Name="webView" Source="https://droneblocks-staging.firebaseapp.com/airsim.html?1234" />
-        <Button Name="TestButton" Content="Button" Margin="703,500,0,0" VerticalAlignment="Top"/>
+        <!--<Button Name="TestButton" Content="Button" Margin="703,500,0,0" VerticalAlignment="Top"/>-->
     </Grid>
 </Page>
