@@ -37,6 +37,7 @@ namespace DroneBlocksAirSim
             ArrayList commandList = new ArrayList();
 
             // Let's enable API control
+            // Need to make this more intelligent to determine if drone is in air
             commandList.Add(new EnableApiControl().GetCommand());
 
             foreach (var commandString in missionString.Split("|"))
@@ -49,31 +50,39 @@ namespace DroneBlocksAirSim
                 {
                     commandList.Add(new Takeoff().GetCommand());
                 }
-                else if (command.IndexOf("fly_forward") > -1)
+                // We can handle these in the same statement because the blocks will send a negative value for backward flight
+                else if (command.IndexOf("fly_forward") > -1 || command.IndexOf("fly_backward") > -1)
                 {
-                    int distance = int.Parse(parameters[1]);
-                    Debug.WriteLine("giong to fly forward: " + distance);
-                    //commandList.Add(new FlyForward(distance).GetCommand());
-
-                    // Testing move by velocity
-                    commandList.Add(new MoveByVelocity(distance, 0, 0, 30).GetCommand());
+                    int xvelocity = int.Parse(parameters[1]);
+                    int duration = int.Parse(parameters[2]);
+                    Debug.WriteLine("fly by x velocity {0} for {1} s", xvelocity, duration);
+                    commandList.Add(new MoveByVelocity(xvelocity, 0, 0, duration).GetCommand());
                 }
-                else if (command.IndexOf("fly_up") > -1)
+                else if (command.IndexOf("fly_left") > -1 || command.IndexOf("fly_right") > -1)
                 {
-                    int distance = int.Parse(parameters[1]);
-
-                    // For now let's do the negative conversion for them
-                    distance *= -1;
-
-                    Debug.WriteLine("giong to fly up: " + distance);
-
-                    // Testing move by velocity
-                    commandList.Add(new MoveByVelocity(0, 0, distance, 30).GetCommand());
+                    int yvelocity = int.Parse(parameters[1]);
+                    int duration = int.Parse(parameters[2]);
+                    Debug.WriteLine("fly by y velocity {0} for {1} s", yvelocity, duration);
+                    commandList.Add(new MoveByVelocity(0, yvelocity, 0, duration).GetCommand());
                 }
-                else if (command.IndexOf("fly_backward") > -1)
+                else if (command.IndexOf("fly_up") > -1 || command.IndexOf("fly_down") > -1)
                 {
-                    int distance = int.Parse(parameters[1]);
-                    commandList.Add(new FlyBackward(distance));
+                    int zvelocity = int.Parse(parameters[1]);
+                    int duration = int.Parse(parameters[2]);
+                    Debug.WriteLine("fly by z velocity {0} for {1} s", zvelocity, duration);
+                    commandList.Add(new MoveByVelocity(0, 0, zvelocity, duration).GetCommand());
+                }
+                else if (command.IndexOf("weather_enable") > -1)
+                {
+                    bool enable = bool.Parse(parameters[1]);
+                    commandList.Add(new WeatherEnable(enable).GetCommand());
+                }
+                else if (command.IndexOf("weather_set") > -1)
+                {
+                    int weatherType = int.Parse(parameters[1]);
+                    float intensity = float.Parse(parameters[2]);
+                    commandList.Add(new WeatherSet(weatherType, intensity).GetCommand());
+
                 }
                 else if (command.IndexOf("land") > -1)
                 {

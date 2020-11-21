@@ -22,7 +22,6 @@ namespace DroneBlocksAirSim
 
             foreach (MessagePackCommand command in commands)
             {
-                Debug.WriteLine("About to send: " + command.ToString());
                 client.Send(command);
                 Thread.Sleep(3000);
             }
