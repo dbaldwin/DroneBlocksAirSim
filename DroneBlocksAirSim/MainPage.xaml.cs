@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -21,18 +22,24 @@ namespace DroneBlocksAirSim
 
         async void webView_ScriptNotify(object sender, NotifyEventArgs e)
         {
+            await LaunchMission(e.Value);
+        }
 
-            Debug.WriteLine("Raw mission string: " + e.Value);
+        private async Task LaunchMission(string commandStr)
+        {
 
-            // Temporary because of cache
-            if (e.Value.IndexOf("Please") > -1) return;
+            await Task.Run(() =>
+            {
+                Debug.WriteLine("Raw mission string: " + commandStr);
 
-            // Launch code is provided from webView
-            MissionBuilder mb = new MissionBuilder(e.Value);
-            var commandArray = mb.parseMission();
+                // Launch code is provided from webView
+                MissionBuilder mb = new MissionBuilder(commandStr);
+                var commandArray = mb.parseMission();
 
-            MissionHandler mh = new MissionHandler();
-            mh.StartMissionLoop(commandArray);
+                // After mission is parsed we loop and send commands
+                MissionHandler mh = new MissionHandler();
+                mh.StartMissionLoop(commandArray);
+            });
 
         }
 
