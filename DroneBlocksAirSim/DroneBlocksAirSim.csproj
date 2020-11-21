@@ -126,6 +126,8 @@
     <Compile Include="Commands\MoveByVelocity.cs" />
     <Compile Include="Commands\Takeoff.cs" />
     <Compile Include="Commands\FlyBackward.cs" />
+    <Compile Include="Commands\WeatherEnable.cs" />
+    <Compile Include="Commands\WeatherSet.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
