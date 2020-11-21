@@ -119,11 +119,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\ArmDisarm.cs" />
     <Compile Include="Commands\EnableApiControl.cs" />
     <Compile Include="Commands\FlyForward.cs" />
     <Compile Include="Commands\MessagePackCommand.cs" />
     <Compile Include="Commands\Land.cs" />
     <Compile Include="Commands\MoveByVelocity.cs" />
+    <Compile Include="Commands\MoveToPosition.cs" />
     <Compile Include="Commands\Takeoff.cs" />
     <Compile Include="Commands\FlyBackward.cs" />
     <Compile Include="Commands\WeatherEnable.cs" />
@@ -133,6 +135,7 @@
     </Compile>
     <Compile Include="MissionBuilder.cs" />
     <Compile Include="MissionHandler.cs" />
+    <Compile Include="MissionStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TCP.cs" />
     <Compile Include="Commands\YawMode.cs" />

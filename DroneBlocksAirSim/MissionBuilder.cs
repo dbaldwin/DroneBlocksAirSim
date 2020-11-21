@@ -46,7 +46,15 @@ namespace DroneBlocksAirSim
 
                 string command = parameters[0];
 
-                if (command.IndexOf("takeoff") > -1)
+                if (command.IndexOf("disarm") > -1)
+                {
+                    commandList.Add(new ArmDisarm(false).GetCommand());
+                }
+                else if (command.IndexOf("arm") > -1)
+                {
+                    commandList.Add(new ArmDisarm(true).GetCommand());
+                }
+                else if (command.IndexOf("takeoff") > -1)
                 {
                     commandList.Add(new Takeoff().GetCommand());
                 }
@@ -71,6 +79,14 @@ namespace DroneBlocksAirSim
                     int duration = int.Parse(parameters[2]);
                     Debug.WriteLine("fly by z velocity {0} for {1} s", zvelocity, duration);
                     commandList.Add(new MoveByVelocity(0, 0, zvelocity, duration).GetCommand());
+                }
+                else if (command.IndexOf("fly_to_position") > -1)
+                {
+                    float xposition = float.Parse(parameters[1]);
+                    float yposition = float.Parse(parameters[2]);
+                    float zposition = float.Parse(parameters[3]);
+                    Debug.WriteLine("flying to position {0}, {1}, {2}", xposition, yposition, zposition);
+                    commandList.Add(new MoveToPosition(xposition, yposition, zposition).GetCommand());
                 }
                 else if (command.IndexOf("weather_enable") > -1)
                 {
