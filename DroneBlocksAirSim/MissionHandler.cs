@@ -30,30 +30,3 @@ namespace DroneBlocksAirSim
         }
     }
 }
-
-
-/*
- *  var enableApiControl = new MessagePackCommand
-            {
-                Request = 0,
-                MessageId = 0,
-                Method = "enableApiControl",
-                args = new ArrayList { true, "" }
-            };
-
-            var arm = new MessagePackCommand
-            {
-                Request = 0,
-                MessageId = 1,
-                Method = "armDisarm",
-                args = new ArrayList { true, "" }
-            };
-
-            var disarm = new MessagePackCommand
-            {
-                Request = 0,
-                MessageId = 1,
-                Method = "armDisarm",
-                args = new ArrayList { false, "" }
-            };
-*/
