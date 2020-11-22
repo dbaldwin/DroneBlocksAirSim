@@ -11,8 +11,12 @@ namespace DroneBlocksAirSim
 {
     class MissionHandler
     {
-        public MissionHandler()
+
+        private MissionStatus missionStatus;
+
+        public MissionHandler(MissionStatus missionStatus)
         {
+            this.missionStatus = missionStatus;
         }
 
         public void StartMissionLoop(ArrayList commands)
@@ -22,8 +26,8 @@ namespace DroneBlocksAirSim
 
             foreach (MessagePackCommand command in commands)
             {
-                client.Send(command);
-                Thread.Sleep(3000);
+                client.Send(command, 128);
+                Thread.Sleep(500);
             }
 
             client.Close();

@@ -38,6 +38,7 @@ namespace DroneBlocksAirSim
 
             // Let's enable API control
             // Need to make this more intelligent to determine if drone is in air
+            
             commandList.Add(new EnableApiControl().GetCommand());
 
             foreach (var commandString in missionString.Split("|"))

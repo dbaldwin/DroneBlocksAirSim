@@ -126,10 +126,12 @@
     <Compile Include="Commands\Land.cs" />
     <Compile Include="Commands\MoveByVelocity.cs" />
     <Compile Include="Commands\MoveToPosition.cs" />
+    <Compile Include="Commands\MultirotorState.cs" />
     <Compile Include="Commands\Takeoff.cs" />
     <Compile Include="Commands\FlyBackward.cs" />
     <Compile Include="Commands\WeatherEnable.cs" />
     <Compile Include="Commands\WeatherSet.cs" />
+    <Compile Include="DroneStatus.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -171,6 +173,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

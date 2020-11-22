@@ -14,10 +14,13 @@ namespace DroneBlocksAirSim
     public sealed partial class MainPage : Page
     {
 
+        private MissionStatus missionStatus;
+
         public MainPage()
         {
             this.InitializeComponent();
             webView.ScriptNotify += webView_ScriptNotify;
+            missionStatus = new MissionStatus();
         }
 
         async void webView_ScriptNotify(object sender, NotifyEventArgs e)
@@ -30,6 +33,10 @@ namespace DroneBlocksAirSim
 
             await Task.Run(() =>
             {
+
+                new DroneStatus().GetState();
+
+                return;
                 Debug.WriteLine("Raw mission string: " + commandStr);
 
                 // Launch code is provided from webView
@@ -37,7 +44,7 @@ namespace DroneBlocksAirSim
                 var commandArray = mb.parseMission();
 
                 // After mission is parsed we loop and send commands
-                MissionHandler mh = new MissionHandler();
+                MissionHandler mh = new MissionHandler(missionStatus);
                 mh.StartMissionLoop(commandArray);
             });
 
