@@ -10,11 +10,11 @@ namespace DroneBlocksAirSim
     {
         private TCP client;
 
-        public bool IsDroneFlying { get; set; }
+        public bool IsFlying { get; set; }
 
         public DroneStatus()
         {
-            IsDroneFlying = false;
+            IsFlying = false;
             client = new TCP();
         }
 
@@ -25,10 +25,13 @@ namespace DroneBlocksAirSim
             dynamic json = JsonConvert.DeserializeObject(MessagePackSerializer.ConvertToJson(response));
 
             JToken parsed = JToken.Parse(MessagePackSerializer.ConvertToJson(response));
+            JToken val = parsed[3]["landed_state"];
+            IsFlying = (bool)val;
 
             // 0 is landed
             // 1 is flying
-            Debug.WriteLine(parsed[3]["landed_state"]);
+            Debug.WriteLine(IsFlying);
+
             client.Close();
 
         }
