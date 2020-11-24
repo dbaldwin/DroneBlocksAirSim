@@ -89,6 +89,11 @@ namespace DroneBlocksAirSim
                     Debug.WriteLine("flying to position {0}, {1}, {2}", xposition, yposition, zposition);
                     commandList.Add(new MoveToPosition(xposition, yposition, zposition).GetCommand());
                 }
+                else if (command.IndexOf("hover") > -1)
+                {
+                    int delay = int.Parse(parameters[1]);
+                    commandList.Add(new Hover(delay).GetCommand());
+                }
                 else if (command.IndexOf("weather_enable") > -1)
                 {
                     bool enable = bool.Parse(parameters[1]);
@@ -106,6 +111,7 @@ namespace DroneBlocksAirSim
                     // Before landing we're going to need to introduce a delay
                     // It seems like AirSim ignores the command if the drone is 
                     // trying to stabilize itself
+                    commandList.Add(new Hover(3).GetCommand());
                     commandList.Add(new Land().GetCommand());
                 }
             }

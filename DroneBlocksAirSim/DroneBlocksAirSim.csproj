@@ -123,6 +123,7 @@
     <Compile Include="Commands\EnableApiControl.cs" />
     <Compile Include="Commands\FlyForward.cs" />
     <Compile Include="Commands\GetServerVersion.cs" />
+    <Compile Include="Commands\Hover.cs" />
     <Compile Include="Commands\MessagePackCommand.cs" />
     <Compile Include="Commands\Land.cs" />
     <Compile Include="Commands\MoveByVelocity.cs" />

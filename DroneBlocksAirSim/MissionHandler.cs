@@ -26,7 +26,19 @@ namespace DroneBlocksAirSim
 
             foreach (MessagePackCommand command in commands)
             {
-                client.Send(command, 128);
+
+                if (command.Method == "hover")
+                {
+                    int delay = (int)command.args[0];
+                    Debug.WriteLine("Delaying for {0}", delay);
+                    Thread.Sleep(delay);
+                }
+                else
+                {
+                    client.Send(command, 128);
+                }
+                
+                // This may be unnecessary between commands
                 Thread.Sleep(500);
             }
 
