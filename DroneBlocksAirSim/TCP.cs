@@ -30,6 +30,13 @@ namespace DroneBlocksAirSim
 
         public byte[] Send(MessagePackCommand command, int responseLength)
         {
+
+            if (stream == null)
+            {
+                return new Byte[0];
+                
+            }
+
             Byte[] message = MessagePackSerializer.Serialize(command);
             stream.Write(message, 0, message.Length);
             var response = new Byte[responseLength];

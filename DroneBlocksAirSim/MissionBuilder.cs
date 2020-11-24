@@ -103,6 +103,9 @@ namespace DroneBlocksAirSim
                 }
                 else if (command.IndexOf("land") > -1)
                 {
+                    // Before landing we're going to need to introduce a delay
+                    // It seems like AirSim ignores the command if the drone is 
+                    // trying to stabilize itself
                     commandList.Add(new Land().GetCommand());
                 }
             }

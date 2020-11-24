@@ -122,6 +122,7 @@
     <Compile Include="Commands\ArmDisarm.cs" />
     <Compile Include="Commands\EnableApiControl.cs" />
     <Compile Include="Commands\FlyForward.cs" />
+    <Compile Include="Commands\GetServerVersion.cs" />
     <Compile Include="Commands\MessagePackCommand.cs" />
     <Compile Include="Commands\Land.cs" />
     <Compile Include="Commands\MoveByVelocity.cs" />
@@ -129,8 +130,11 @@
     <Compile Include="Commands\MultirotorState.cs" />
     <Compile Include="Commands\Takeoff.cs" />
     <Compile Include="Commands\FlyBackward.cs" />
+    <Compile Include="Commands\TraceLine.cs" />
     <Compile Include="Commands\WeatherEnable.cs" />
     <Compile Include="Commands\WeatherSet.cs" />
+    <Compile Include="Commands\Wind.cs" />
+    <Compile Include="ConnectionHandler.cs" />
     <Compile Include="DroneStatus.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -162,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Commands\MainPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

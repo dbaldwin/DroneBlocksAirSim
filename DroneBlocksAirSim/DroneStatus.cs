@@ -6,21 +6,17 @@ using Newtonsoft.Json.Linq;
 
 namespace DroneBlocksAirSim
 {
-    class DroneStatus
+    static class DroneStatus
     {
-        private TCP client;
+        private static TCP client;
 
-        public bool IsFlying { get; set; }
+        public static bool IsConnected { get; set; }
+        public static bool IsFlying { get; set; }
 
-        public DroneStatus()
+        public static void GetState()
         {
-            IsFlying = false;
             client = new TCP();
-        }
 
-        public void GetState()
-        {
-            
             byte[] response = client.Send(new MultirotorState().GetCommand(), 1024);
             dynamic json = JsonConvert.DeserializeObject(MessagePackSerializer.ConvertToJson(response));
 

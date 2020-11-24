@@ -9,8 +9,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <!--<WebView Name="webView" Source="ms-appx-web:///test.html" />-->
-        <WebView Name="webView" Source="https://droneblocks-staging.firebaseapp.com/airsim.html?1234" />
-        <!--<Button Name="TestButton" Content="Button" Margin="703,500,0,0" VerticalAlignment="Top"/>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border Background="Black" Grid.Row="0">
+            <Button Name="ConnectButton" Content="Connect" HorizontalAlignment="Right" Background="#FF028F9D" Foreground="White" Margin="0,0,10,0" Click="Connect" />
+        </Border>
+        <WebView Name="webView" Source="https://droneblocks-staging.firebaseapp.com/airsim.html?12345" Grid.Row="1" />
     </Grid>
 </Page>

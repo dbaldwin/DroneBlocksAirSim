@@ -31,12 +31,18 @@ namespace DroneBlocksAirSim
         private async Task LaunchMission(string commandStr)
         {
 
+            /*if (!DroneStatus.IsConnected)
+            {
+                Debug.WriteLine("Drone is not connected!");
+                return;
+            }*/
+
             await Task.Run(() =>
             {
 
-                new DroneStatus().GetState();
+                /*new DroneStatus().GetState();
+                return;*/
 
-                return;
                 Debug.WriteLine("Raw mission string: " + commandStr);
 
                 // Launch code is provided from webView
@@ -50,5 +56,16 @@ namespace DroneBlocksAirSim
 
         }
 
+        private void Connect(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("Clicked!");
+            var connect = new ConnectionHandler();
+            connect.BeginConnection(this);
+        }
+
+        public void UpdateButton(string label)
+        {
+            ConnectButton.Content = label;
+        }
     }
 }
