@@ -39,7 +39,7 @@ namespace DroneBlocksAirSim
             // Let's enable API control
             // Need to make this more intelligent to determine if drone is in air
             
-            commandList.Add(new EnableApiControl().GetCommand());
+            //commandList.Add(new EnableApiControl().GetCommand());
 
             foreach (var commandString in missionString.Split("|"))
             {
@@ -93,6 +93,13 @@ namespace DroneBlocksAirSim
                 {
                     int delay = int.Parse(parameters[1]);
                     commandList.Add(new Hover(delay).GetCommand());
+                }
+                else if (command.IndexOf("wind") > -1)
+                {
+                    int x_vel = int.Parse(parameters[1]);
+                    int y_vel = int.Parse(parameters[2]);
+                    int z_vel = int.Parse(parameters[3]);
+                    commandList.Add(new Wind(x_vel, y_vel, z_vel).GetCommand());
                 }
                 else if (command.IndexOf("weather_enable") > -1)
                 {
