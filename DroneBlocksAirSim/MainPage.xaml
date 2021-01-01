@@ -19,6 +19,6 @@
         <Border Background="Black" Grid.Row="0">
             <Button Name="ConnectButton" Content="Connect" HorizontalAlignment="Right" Background="#FF028F9D" Foreground="White" Margin="0,0,10,0" Click="Connect" />
         </Border>
-        <WebView Name="webView" Source="https://droneblocks-staging.firebaseapp.com/airsim.html?12345" Grid.Row="1" />
+        <WebView Name="webView" Source="https://airsim-dev.firebaseapp.com/airsim.html?1" Grid.Row="1" />
     </Grid>
 </Page>
