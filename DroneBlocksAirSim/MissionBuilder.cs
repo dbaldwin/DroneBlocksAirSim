@@ -39,7 +39,7 @@ namespace DroneBlocksAirSim
             // Let's enable API control
             // Need to make this more intelligent to determine if drone is in air
             
-            //commandList.Add(new EnableApiControl().GetCommand());
+            commandList.Add(new EnableApiControl().GetCommand());
 
             foreach (var commandString in missionString.Split("|"))
             {
@@ -62,22 +62,22 @@ namespace DroneBlocksAirSim
                 // We can handle these in the same statement because the blocks will send a negative value for backward flight
                 else if (command.IndexOf("fly_forward") > -1 || command.IndexOf("fly_backward") > -1)
                 {
-                    int xvelocity = int.Parse(parameters[1]);
-                    int duration = int.Parse(parameters[2]);
+                    float xvelocity = float.Parse(parameters[1]);
+                    float duration = float.Parse(parameters[2]);
                     Debug.WriteLine("fly by x velocity {0} for {1} s", xvelocity, duration);
                     commandList.Add(new MoveByVelocity(xvelocity, 0, 0, duration).GetCommand());
                 }
                 else if (command.IndexOf("fly_left") > -1 || command.IndexOf("fly_right") > -1)
                 {
-                    int yvelocity = int.Parse(parameters[1]);
-                    int duration = int.Parse(parameters[2]);
+                    float yvelocity = float.Parse(parameters[1]);
+                    float duration = float.Parse(parameters[2]);
                     Debug.WriteLine("fly by y velocity {0} for {1} s", yvelocity, duration);
                     commandList.Add(new MoveByVelocity(0, yvelocity, 0, duration).GetCommand());
                 }
                 else if (command.IndexOf("fly_up") > -1 || command.IndexOf("fly_down") > -1)
                 {
-                    int zvelocity = int.Parse(parameters[1]);
-                    int duration = int.Parse(parameters[2]);
+                    float zvelocity = float.Parse(parameters[1]);
+                    float duration = float.Parse(parameters[2]);
                     Debug.WriteLine("fly by z velocity {0} for {1} s", zvelocity, duration);
                     commandList.Add(new MoveByVelocity(0, 0, zvelocity, duration).GetCommand());
                 }
@@ -91,7 +91,7 @@ namespace DroneBlocksAirSim
                 }
                 else if (command.IndexOf("hover") > -1)
                 {
-                    int delay = int.Parse(parameters[1]);
+                    float delay = float.Parse(parameters[1]);
                     commandList.Add(new Hover(delay).GetCommand());
                 }
                 else if (command.IndexOf("wind") > -1)

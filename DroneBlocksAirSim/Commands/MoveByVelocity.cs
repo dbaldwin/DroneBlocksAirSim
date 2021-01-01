@@ -7,7 +7,7 @@ namespace DroneBlocksAirSim.Commands
 
         private readonly MessagePackCommand command;
 
-        public MoveByVelocity(int vx, int vy, int vz, int duration)
+        public MoveByVelocity(float vx, float vy, float vz, float duration)
         {
             command = new MessagePackCommand
             {
