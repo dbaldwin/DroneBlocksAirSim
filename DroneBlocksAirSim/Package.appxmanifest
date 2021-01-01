@@ -9,7 +9,7 @@
   <Identity
     Name="DroneBlocksLLC.DroneBlocksAirSim"
     Publisher="CN=8F198FAB-71D2-4FC1-A6FA-00367F5E7BF4"
-    Version="1.0.3.0" />
+    Version="1.0.4.0" />
 
   <mp:PhoneIdentity PhoneProductId="6e43f19f-a37d-4b2b-a17a-3efce09c6f76" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -43,7 +43,7 @@
         <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
       <uap:ApplicationContentUriRules>
-        <uap:Rule Type="include" Match="https://droneblocks-staging.firebaseapp.com/*" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://airsim-dev.firebaseapp.com/*" WindowsRuntimeAccess="all"/>
       </uap:ApplicationContentUriRules>
     </Application>
   </Applications>
