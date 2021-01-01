@@ -7,7 +7,7 @@ namespace DroneBlocksAirSim.Commands
 
         private readonly MessagePackCommand command;
 
-        public Hover(int delay)
+        public Hover(float delay)
         {
             command = new MessagePackCommand
             {

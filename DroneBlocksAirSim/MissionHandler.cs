@@ -29,7 +29,7 @@ namespace DroneBlocksAirSim
 
                 if (command.Method == "hover")
                 {
-                    int delay = (int)command.args[0];
+                    int delay = Convert.ToInt32(command.args[0]);
                     Debug.WriteLine("Delaying for {0}", delay);
                     Thread.Sleep(delay);
                 }
