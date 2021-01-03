@@ -20,7 +20,12 @@ namespace DroneBlocksAirSim
         {
             this.InitializeComponent();
             webView.ScriptNotify += webView_ScriptNotify;
+            
+            // TODO: Implement this
             missionStatus = new MissionStatus();
+
+            // Trying to clear the fucking cache. It's killing me.
+            WebView.ClearTemporaryWebDataAsync();
         }
 
         async void webView_ScriptNotify(object sender, NotifyEventArgs e)
@@ -59,8 +64,8 @@ namespace DroneBlocksAirSim
         private void Connect(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("Clicked!");
-            var connect = new ConnectionHandler();
-            connect.BeginConnection(this);
+            //var connect = new ConnectionHandler();
+            //connect.BeginConnection(this);
         }
 
         public void UpdateButton(string label)

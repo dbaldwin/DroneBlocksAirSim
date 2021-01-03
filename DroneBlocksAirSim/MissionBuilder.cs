@@ -59,35 +59,48 @@ namespace DroneBlocksAirSim
                 {
                     commandList.Add(new Takeoff().GetCommand());
                 }
+                else if (command.IndexOf("coordinate_system") > -1)
+                {
+
+                }
                 // We can handle these in the same statement because the blocks will send a negative value for backward flight
-                else if (command.IndexOf("fly_forward") > -1 || command.IndexOf("fly_backward") > -1)
+                else if (command.IndexOf("fly_x") > -1)
                 {
                     float xvelocity = float.Parse(parameters[1]);
                     float duration = float.Parse(parameters[2]);
                     Debug.WriteLine("fly by x velocity {0} for {1} s", xvelocity, duration);
                     commandList.Add(new MoveByVelocity(xvelocity, 0, 0, duration).GetCommand());
                 }
-                else if (command.IndexOf("fly_left") > -1 || command.IndexOf("fly_right") > -1)
+                else if (command.IndexOf("fly_y") > -1)
                 {
                     float yvelocity = float.Parse(parameters[1]);
                     float duration = float.Parse(parameters[2]);
                     Debug.WriteLine("fly by y velocity {0} for {1} s", yvelocity, duration);
                     commandList.Add(new MoveByVelocity(0, yvelocity, 0, duration).GetCommand());
                 }
-                else if (command.IndexOf("fly_up") > -1 || command.IndexOf("fly_down") > -1)
+                else if (command.IndexOf("fly_z") > -1)
                 {
                     float zvelocity = float.Parse(parameters[1]);
                     float duration = float.Parse(parameters[2]);
                     Debug.WriteLine("fly by z velocity {0} for {1} s", zvelocity, duration);
                     commandList.Add(new MoveByVelocity(0, 0, zvelocity, duration).GetCommand());
                 }
-                else if (command.IndexOf("fly_to_position") > -1)
+                else if (command.IndexOf("fly_to_location") > -1)
                 {
                     float xposition = float.Parse(parameters[1]);
                     float yposition = float.Parse(parameters[2]);
                     float zposition = float.Parse(parameters[3]);
-                    Debug.WriteLine("flying to position {0}, {1}, {2}", xposition, yposition, zposition);
+                    Debug.WriteLine("flying to location {0}, {1}, {2}", xposition, yposition, zposition);
                     commandList.Add(new MoveToPosition(xposition, yposition, zposition).GetCommand());
+                }
+                else if (command.IndexOf("fly_rpy") > -1)
+                {
+                    float roll = float.Parse(parameters[1]);
+                    float pitch = float.Parse(parameters[2]);
+                    float yaw = float.Parse(parameters[3]);
+                    float duration = float.Parse(parameters[4]);
+                    Debug.WriteLine("flying with roll {0}, pitch {1}, yaw {2}, for {3} seconds", roll, pitch, yaw, duration);
+                    commandList.Add(new MoveByRollPitchYaw(roll, pitch, yaw, duration).GetCommand());
                 }
                 else if (command.IndexOf("hover") > -1)
                 {
