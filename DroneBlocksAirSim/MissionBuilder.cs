@@ -107,6 +107,17 @@ namespace DroneBlocksAirSim
                     float delay = float.Parse(parameters[1]);
                     commandList.Add(new Hover(delay).GetCommand());
                 }
+                else if (command.IndexOf("rotate_to_yaw") > -1)
+                {
+                    float yaw = float.Parse(parameters[1]);
+                    commandList.Add(new RotateToYaw(yaw).GetCommand());
+                }
+                else if (command.IndexOf("rotate_yaw_rate") > -1)
+                {
+                    float yawRate = float.Parse(parameters[1]);
+                    float duration = float.Parse(parameters[2]);
+                    commandList.Add(new RotateByYawRate(yawRate, duration).GetCommand());
+                }
                 else if (command.IndexOf("wind") > -1)
                 {
                     int x_vel = int.Parse(parameters[1]);
