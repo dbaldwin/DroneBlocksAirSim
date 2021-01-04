@@ -138,6 +138,8 @@
     <Compile Include="Commands\MoveByVelocity.cs" />
     <Compile Include="Commands\MoveToPosition.cs" />
     <Compile Include="Commands\MultirotorState.cs" />
+    <Compile Include="Commands\RotateByYawRate.cs" />
+    <Compile Include="Commands\RotateToYaw.cs" />
     <Compile Include="Commands\Takeoff.cs" />
     <Compile Include="Commands\FlyBackward.cs" />
     <Compile Include="Commands\TraceLine.cs" />

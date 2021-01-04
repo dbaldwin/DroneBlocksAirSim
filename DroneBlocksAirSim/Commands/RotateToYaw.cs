@@ -13,7 +13,7 @@ namespace DroneBlocksAirSim.Commands
             {
                 Request = 0,
                 MessageId = 1,
-                Method = "rotateByYawRate",
+                Method = "rotateToYaw",
                 args = new ArrayList { yaw, 600, 5, "" }
             };
         }
